@@ -50,136 +50,104 @@ int main()
 	SDL_Color color = { 255, 255, 0, 255 }, color2 = { 255,0,0,255 }, color3 = { 0,255,0,255 }, color4 = { 0,0,0,255 };
 	SDL_Event ev;
 	
-
+	//std::string user_input;
 	int width = 20, height = 20, text_width = 1200;
 	int counter = 0; 
-	std::list<std::string> chosen_windows;
-
-	std::string user_input;
-	std::vector<const char *> windows_names_const; //vector umesto lista
+	std::list<std::string> chosen_windows;  //negde dalje u kodu se koristi, nebitno
 	std::vector<int> checked_windows;
-	EnumWindows(EnumWindowsProc, 0);
-	for each(std::string window_name in windows_names){
-	//for (auto const& window_name : windows_names) {
-		//std::cout << ++counter << ") " << window_name << "\n";
-		draw_checkbox(ren, 0, height * counter, width,height);
-		const char *name = &window_name[0];
-		if (window_name.length()== 0){
-			std::cout<<"USAAOOOO!!!"<<std::endl;
-			continue;
+	std::vector<const char*> windows_names_const;
+	
+	EnumWindows(EnumWindowsProc, 0);	//popunjava windows_names
+
+    for (std::list<std::string>::const_iterator i = windows_names.cbegin(); i != windows_names.cend(); ++i) {
+        
+		if (!i->length()){
+            continue;
 		}
-		std::cout<< window_name<< "\t" << name <<std::endl;
-		windows_names_const.push_back(name);
+
+		draw_checkbox(ren, 0, height * counter, width,height);
+        windows_names_const.emplace_back(i->c_str());
+        text(ren, 50, height * counter, windows_names_const[counter],font2, &rect, &color2, &text_width, height, &ip);
+		counter ++;
 		checked_windows.push_back(0);
-		
-		text(ren, 50, height * counter, name,font2, &rect, &color2, &text_width, height, &ip);
-		counter++;
-	}
-//	int wi = 36;
-	text(ren, 1000, 550, "Apply", font2, &rect, &color2, &text_width, height, &ip);//36 umesto &wi
+    }
+
+	text(ren, 1000, 550, "Apply", font2, &rect, &color2, &text_width, height, &ip);
 	SDL_RenderPresent(ren);
-
-	//std::cout << "\n\n" << "MENI" << "Unesite brojeve aplikacija koje zelite da se smenjuju razdvojene zarezima: ";
-	//std::cin >> user_input;
-	//std::list<std::string> user_input_splitted = split_string(user_input);
-
-	//for (auto const& one : user_input_splitted) {
-	//	std::cout << one;
-	//}
 	
 	while (1) {
 		SDL_PollEvent(&ev);
 		SDL_GetMouseState(&x, &y);
 		if (x > 1000 && x < 1330 && y>550 && y < 586) {
-			text(ren, 1000, 550, "Apply", font2, &rect, &color2, &wi, 36, &ip);
+			text(ren, 1000, 550, "Apply", font2, &rect, &color3, &wi, height, &ip);
 			SDL_RenderPresent(ren);
 			if (ev.type == SDL_MOUSEBUTTONDOWN)
 				break;
 		}
+
+		else{
+			text(ren, 1000, 550, "Apply", font2, &rect, &color2, &text_width, height, &ip);
+			SDL_RenderPresent(ren);
+		}
 		
 		if (y < ip) {
 			
-			
-			//std::list<const char*>::iterator it = windows_names_const.begin();
-			//std::list<int>::iterator ch = checked_windows.begin();
-
-			//std::cout<< *it<<std::endl;
-
 			for (int i = 0; i < counter; i++) {
-				if (i != 0) {
-					//std::advance(it, 1);
-					//std::advance(ch, 1);
-					i = i;
-				}
+				
 				if (y > i*height && y < i*height + 20) {
-					
-					//text(ren, 50, height * i, *it, font2, &rect, &color3, &text_width, height, &ip);
+					std::cout<<windows_names_const[i]<<std::endl;
+					text(ren, 50, height * i, windows_names_const[i], font2, &rect, &color3, &text_width, height, &ip);
 					SDL_RenderPresent(ren);
+					
 					if (ev.type == SDL_MOUSEBUTTONDOWN) {
-						std::cout << "cekirao"<<std::endl;
-						/*if (*ch == 0) {
-							*ch = 1;
-							draw_checked_checkbox(ren, 0, i*height, width, height);
-							Sleep(200);
-						}*/
-						if (checked_windows[i] == 0){
+
+						if (checked_windows[i] == 0) {
 							checked_windows[i] = 1;
-							draw_checked_checkbox(ren, 0, i*height, width, height);
+							draw_checked_checkbox(ren, 0, i * height, width, height);
+							SDL_RenderPresent(ren);
 							Sleep(200);
-						}
-						else {
-							std::cout << "odcekirao" << std::endl;
-							checked_windows[i] = 0;
-							//*ch = 0;
-							draw_checkbox(ren, 0, i*height, width, height);
-							Sleep(200);
-							
 						}
 
+						else {
+							checked_windows[i] = 0;
+							draw_checkbox(ren, 0, i*height, width, height);
+							SDL_RenderPresent(ren);
+							Sleep(200);	
+						}
 					}
-					//std::cout << *ch << std::endl;
 				}
 
 				else {
-					//text(ren, 50, height * i, *it, font2, &rect, &color2, &text_width, height, &ip);
+					text(ren, 50, height * i, windows_names_const[i], font2, &rect, &color2, &text_width, height, &ip);
+					SDL_RenderPresent(ren);
 				}
 			}
 		}
+
 		else {
-			//std::list<const char*>::iterator it = windows_names_const.begin();
 			for (int i = 0; i < counter; i++) {
-				if (i != 0) {
-					//std::advance(it, 1);
-					i=i;
-				}
 				text(ren, 50, height * i, windows_names_const[i], font2, &rect, &color2, &text_width, height, &ip);
 				SDL_RenderPresent(ren);
 			}
 		}
 	}
-	
-	text(ren, 1000, 650, "Stop", font2, &rect, &color2, &text_width, height, &ip);
-	SDL_RenderPresent(ren);
 
-	//std::list<int>::iterator ch = checked_windows.begin();
 	int value = 0;
+
 	for each( int i in checked_windows){
-	//for (auto const& i : checked_windows) {
-		if (value != 0) {
-			//std::advance(ch, 1);
-			i=i;
-		}
-		if (i == 1){//*ch == 1) {
+			
+		if (i == 1){
 			chosen_windows.push_back (std::to_string(static_cast<long long>(value + 1)));
 		 }
 		value++;
-
 	}
 
 	while (1) {
-		//show_windows(user_input_splitted, list_of_HWNDs);
-		show_windows(chosen_windows, list_of_HWNDs);
+			text(ren, 1000, 650, "Stop", font2, &rect, &color2, &text_width, height, &ip);
+			SDL_RenderPresent(ren);
+			show_windows(chosen_windows, list_of_HWNDs);
 	}
+
 	return 0;
 }
 
@@ -221,7 +189,7 @@ void text(SDL_Renderer *ren,int x,int y,const char *ispis,TTF_Font *font,SDL_Rec
 	SDL_Surface *surface  = TTF_RenderUTF8_Blended(font, ispis, *color);
 //surface= TTF_RenderText_Blended(font, ispis, *color);
 	if (!(surface= TTF_RenderText_Blended(font, ispis, *color))){
-		std::cout<<SDL_GetError();
+		std::cout<<TTF_GetError();
 	}
 	texture = SDL_CreateTextureFromSurface(ren, surface);
 	rect->x=x;

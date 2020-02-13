@@ -1,10 +1,11 @@
-﻿Build started 2/12/2020 7:21:58 PM.
+﻿Build started 2/13/2020 6:11:16 PM.
      1>Project "D:\switch_windows_xp\switch_windows_xp\switch_windows_xp.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Touching "Debug\switch_windows_xp.unsuccessfulbuild".
+         Creating "Debug\switch_windows_xp.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
          All outputs are up-to-date.
-         All outputs are up-to-date.
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"Debug\switch_windows_xp.pch" /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt switch_windows_xp.cpp
+         switch_windows_xp.cpp
        ManifestResourceCompile:
          All outputs are up-to-date.
        Link:
@@ -17,15 +18,9 @@
          SDL2_ttf.lib
        Manifest:
          c:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\switch_windows_xp.exe.embed.manifest" /manifest Debug\switch_windows_xp.exe.intermediate.manifest
-         c:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\switch_windows_xp.exe.embed.manifest.res" Debug\switch_windows_xp_manifest.rc 
+         All outputs are up-to-date.
        LinkEmbedManifest:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\switch_windows_xp\Debug\switch_windows_xp.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\switch_windows_xp.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"D:\switch_windows_xp\Debug\switch_windows_xp.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\switch_windows_xp\Debug\switch_windows_xp.lib" /MACHINE:X86 Debug\switch_windows_xp.exe.embed.manifest.res
-         Debug\stdafx.obj
-         Debug\switch_windows_xp.obj
-         SDL2.lib
-         SDL2main.lib
-         SDL2_image.lib
-         SDL2_ttf.lib
+         All outputs are up-to-date.
          switch_windows_xp.vcxproj -> D:\switch_windows_xp\Debug\switch_windows_xp.exe
        FinalizeBuildStatus:
          Deleting file "Debug\switch_windows_xp.unsuccessfulbuild".
@@ -34,4 +29,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.02
+Time Elapsed 00:00:01.49
