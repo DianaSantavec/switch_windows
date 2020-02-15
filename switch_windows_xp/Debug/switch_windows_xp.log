@@ -1,4 +1,4 @@
-﻿Build started 2/13/2020 6:11:16 PM.
+﻿Build started 2/15/2020 11:32:26 PM.
      1>Project "D:\switch_windows_xp\switch_windows_xp\switch_windows_xp.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\switch_windows_xp.unsuccessfulbuild" because "AlwaysCreate" was specified.
@@ -29,4 +29,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.49
+Time Elapsed 00:00:03.29

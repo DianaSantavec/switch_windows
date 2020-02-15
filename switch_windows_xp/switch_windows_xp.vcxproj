@@ -39,8 +39,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\sdl\SDL2_image-2.0.5\include;D:\sdl\SDL2_ttf-2.0.15\include;D:\sdl\SDL2-2.0.10\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\sdl\SDL2_image-2.0.5\lib\x86;D:\sdl\SDL2_ttf-2.0.15\lib\x86;D:\sdl\SDL2-2.0.10\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\sdl\SDL2_image-2.0.5\include;C:\Users\diana\Downloads\boost_1_45_0\boost_1_45_0;D:\sdl\SDL2_ttf-2.0.15\include;D:\sdl\SDL2-2.0.10\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\diana\Downloads\boost_1_45_0\boost_1_45_0\stage\lib;D:\sdl\SDL2_image-2.0.5\lib\x86;D:\sdl\SDL2_ttf-2.0.15\lib\x86;D:\sdl\SDL2-2.0.10\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
