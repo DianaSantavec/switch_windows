@@ -22,7 +22,7 @@ using namespace boost::this_thread;
 //const int DELAY = 5000;
 
 typedef struct{
-	SDL_Renderer *ren;
+	SDL_Renderer &ren;
 	int x;
 	int y;
 	const char *ispis;
@@ -45,7 +45,7 @@ std::list<std::string> windows_names;
 std::list <std::string> split_string(std::string user_input);
 std::list <HWND> list_of_HWNDs;
 void show_windows(std::list<std::string> user_input, std::list <HWND> list_of_HWNDs);
-int check_pressed_button(ButtonData button_stop_data);
+int check_pressed_button(SDL_Renderer* ren, TTF_Font* font, SDL_Rect rect, SDL_Color color,int a);
 
 BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam)
 {
@@ -63,7 +63,9 @@ BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam)
 	}
 }
 int main(){
+	//
 	int wi = 0, ip = 0,x,y;
+	SDL_Init(SDL_INIT_EVERYTHING);
 	SDL_Window *win = SDL_CreateWindow("SWITCH_WINDOWS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1330, 685, SDL_WINDOW_OPENGL);
 	SDL_Renderer *ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	SDL_Rect rect;
@@ -71,7 +73,7 @@ int main(){
 	TTF_Font* font = TTF_OpenFont("C:/Windows/Fonts/arial.ttf", 36), *font2 = TTF_OpenFont("C:/Windows/Fonts/arial.ttf", 18);
 	SDL_Color color = { 255, 255, 0, 255 }, color2 = { 255,0,0,255 }, color3 = { 0,255,0,255 }, color4 = { 0,0,0,255 };
 	SDL_Event ev;
-	
+	//
 	int width = 20, height = 20, text_width = 1200;
 	int counter = 0; 
 	std::list<std::string> chosen_windows;
@@ -157,9 +159,13 @@ int main(){
 			value++;
 		}
 
-		ButtonData button_stop_data= {ren, 1000, 550, "Apply", font2, &rect, &color2,&color3, &text_width, height, &ip};
-
-		boost::thread check_stop_button(check_pressed_button,button_stop_data);
+		ButtonData button_stop_data= {*ren, 1000, 550, "Apply", font2, &rect, &color2,&color3, &text_width, height, &ip};
+		
+		//text(&button_stop_data.ren, button_stop_data.x, button_stop_data.y, button_stop_data.ispis, button_stop_data.font, button_stop_data.rect, button_stop_data.color, button_stop_data.wi, button_stop_data.he, button_stop_data.ip);
+		//text(ren, 1000, 450, "Stop", font2, &rect, &color3, &wi, height, &ip);
+		//SDL_RenderPresent(ren);
+		
+		boost::thread check_stop_button(check_pressed_button, ren,font,rect,color2,2);
 		boost::thread switch_windows(show_windows,chosen_windows,list_of_HWNDs);
 
 		check_stop_button.join();
@@ -220,7 +226,11 @@ void text(SDL_Renderer *ren,int x,int y,const char *ispis,TTF_Font *font,SDL_Rec
 		std::cout<<TTF_GetError();
 	}
 
-	texture = SDL_CreateTextureFromSurface(ren, surface);
+	//texture = SDL_CreateTextureFromSurface(ren, surface);
+	if (!(texture = SDL_CreateTextureFromSurface(ren, surface))){
+		std::cout << SDL_GetError();
+	}
+
 	rect->x=x;
 	rect->y=y;
 	*wi=surface->w;
@@ -265,11 +275,16 @@ void draw_checked_checkbox(SDL_Renderer *ren, int x, int y, int wi, int he) {
 	SDL_RenderPresent(ren);
 }
 
-int check_pressed_button(ButtonData button_stop_data){
+int check_pressed_button(SDL_Renderer* ren, TTF_Font* font, SDL_Rect rect, SDL_Color color, int a){
+	std::cout << a;
 	SDL_Event ev;
 	int x,y;
-	while (1){
-		text(button_stop_data.ren, button_stop_data.x, button_stop_data.y, button_stop_data.ispis, button_stop_data.font, button_stop_data.rect, button_stop_data.color, button_stop_data.wi, button_stop_data.he, button_stop_data.ip);
+	int width_of_stop_button, height_of_stop_button, sum_of_heights;
+	
+	text(ren, 1000, 650, "Stop", font, &rect, &color, &width_of_stop_button, 18, &sum_of_heights);
+	/*while (1){
+		std::cout <<"Usao";
+		//text(button_stop_data.ren, button_stop_data.x, button_stop_data.y, button_stop_data.ispis, button_stop_data.font, button_stop_data.rect, button_stop_data.color, button_stop_data.wi, button_stop_data.he, button_stop_data.ip);
 
 		SDL_PollEvent(&ev);
 		SDL_GetMouseState(&x, &y);
@@ -282,6 +297,7 @@ int check_pressed_button(ButtonData button_stop_data){
 		SDL_RenderPresent(button_stop_data.ren);
 	}
 	stop_button_state = true;
-	Sleep (200);
+	Sleep (200);*/
+	
 	return 0;
 }
